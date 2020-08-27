@@ -1,4 +1,8 @@
 # django-quiz-app
+
+% python3 -m venv ./venv_quiz 
+% source ./venv_quiz/bin/activate
+
 It is django based quiz app for multiple choice questions.
 
 
