@@ -52,3 +52,6 @@ It is django based quiz app for multiple choice questions.
   I have refernced this quizz app from [tomwalker's](https://github.com/tomwalker) original repo. 
   Reference link to the quiz app repo is [here](https://github.com/tomwalker/django_quiz)
   
+6) ### dumpdata
+  python manage.py dumpdata > data.json
+  python manage.py loaddata  data.json
