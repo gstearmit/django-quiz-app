@@ -82,6 +82,11 @@ class ProgressAdmin(admin.ModelAdmin):
     search_fields = ('user', 'score', )
 
 
+class QuestionAdmin(admin.ModelAdmin):
+    search_fields = ('category', 'Question', )
+
+
+admin.site.register(Question, QuestionAdmin)
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(MCQQuestion, MCQuestionAdmin)
