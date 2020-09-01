@@ -46,6 +46,7 @@ It is django based quiz app for multiple choice questions.
 4) ### Running locally
   To run at localhost. It will run on port 8000 by default.<br>
   `python manage.py runserver` 
+  `sudo python manage.py runserver 2000`
  
 5) ### Reference
   I have refernced this quizz app from [tomwalker's](https://github.com/tomwalker) original repo. 
