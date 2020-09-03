@@ -143,6 +143,11 @@ class QuizTake(FormView):
 
     def dispatch(self, request, *args, **kwargs):
         self.quiz = get_object_or_404(Quiz, url=self.kwargs['quiz_name'])
+
+        print("dispatch")
+        print(self.quiz)
+
+
         if self.quiz.draft and not request.user.has_perm('quiz.change_quiz'):
             raise PermissionDenied
 
@@ -157,17 +162,26 @@ class QuizTake(FormView):
         return super(QuizTake, self).dispatch(request, *args, **kwargs)
 
     def get_form(self, form_class=QuestionForm):
+        print("get_form ")
+        print(QuestionForm)
+
         if self.logged_in_user:
             self.question = self.sitting.get_first_question()
             self.progress = self.sitting.progress()
         return form_class(**self.get_form_kwargs())
 
     def get_form_kwargs(self):
+        print("get_form_kwargs ")
         kwargs = super(QuizTake, self).get_form_kwargs()
-
-        return dict(kwargs, question=self.question)
+        question_dict = dict(kwargs, question=self.question)
+        print(kwargs)
+        print(question_dict)
+        return question_dict
 
     def form_valid(self, form):
+        print("form_valid ")
+        print(form)
+
         if self.logged_in_user:
             self.form_valid_user(form)
             if self.sitting.get_first_question() is False:
@@ -177,6 +191,8 @@ class QuizTake(FormView):
         return super(QuizTake, self).get(self, self.request)
 
     def get_context_data(self, **kwargs):
+        print("get_context_data ")
+
         context = super(QuizTake, self).get_context_data(**kwargs)
         context['question'] = self.question
         context['quiz'] = self.quiz
@@ -184,6 +200,8 @@ class QuizTake(FormView):
             context['previous'] = self.previous
         if hasattr(self, 'progress'):
             context['progress'] = self.progress
+
+        print(context)
         return context
 
     def form_valid_user(self, form):
@@ -211,10 +229,14 @@ class QuizTake(FormView):
         else:
             self.previous = {}
 
+        print("self.previous ")
+        print(self.previous)
+
         self.sitting.add_user_answer(self.question, guess)
         self.sitting.remove_first_question()
 
     def final_result_user(self):
+        print("final_result_user ")
         results = {
             'quiz': self.quiz,
             'score': self.sitting.get_current_score,
@@ -234,6 +256,8 @@ class QuizTake(FormView):
 
         if self.quiz.exam_paper is False:
             self.sitting.delete()
+
+        print(results)
 
         return render(self.request, 'result.html', results)
 
